@@ -811,6 +811,13 @@ input.incorrect,.incorrect{border-color:var(--error)!important;background:#fff1f
 </section>
 </div>
 </main>
+<footer aria-label="Informations légales">
+<div class="top">
+<div aria-hidden="true"></div>
+<div class="center">Din’s Outils — © 2026 Yvan Dinsart. Tous droits réservés.</div>
+<div aria-hidden="true"></div>
+</div>
+</footer>
 <script>
 const numeratorInput=document.getElementById('numerator'),denominatorInput=document.getElementById('denominator'),representationSelect=document.getElementById('representation'),visual=document.getElementById('visual'),message=document.getElementById('message'),displayNumerator=document.getElementById('displayNumerator'),displayDenominator=document.getElementById('displayDenominator');
 function sanitizeValues(){let numerator=Number.parseInt(numeratorInput.value,10),denominator=Number.parseInt(denominatorInput.value,10);if(!Number.isFinite(numerator)||numerator<0)numerator=0;if(!Number.isFinite(denominator)||denominator<1)denominator=1;numerator=Math.min(numerator,40);denominator=Math.min(denominator,20);numeratorInput.value=numerator;denominatorInput.value=denominator;return{numerator,denominator}}
