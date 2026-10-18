@@ -39,6 +39,21 @@ comparaison:{skill:'comparaison',help:true,q:'À dénominateur identique, la plu
 calcul:{skill:'calcul',help:true,q:'Le quart de 12 vaut…',opts:['3','4','12'],a:0,why:'12 ÷ 4 = 3.'},
 pourcent:{skill:'pourcent',help:true,q:'100 % correspond à…',opts:['Une moitié','Une unité entière'],a:1,why:'Cent pour cent désigne la totalité.'}
 };
+function writeFraction(node,value){
+node.replaceChildren();
+var regex=/(\d+)\/(\d+)/g,previous=0,match;
+while((match=regex.exec(value))!==null){
+ if(match.index>previous)node.appendChild(document.createTextNode(value.slice(previous,match.index)));
+ var span=document.createElement('span'),top=document.createElement('span'),line=document.createElement('span'),bottom=document.createElement('span');
+ span.className='dins-inline-frac';span.setAttribute('aria-label',match[1]+' sur '+match[2]);
+ top.textContent=match[1];line.className='dins-inline-bar';line.setAttribute('aria-hidden','true');bottom.textContent=match[2];
+ top.setAttribute('aria-hidden','true');bottom.setAttribute('aria-hidden','true');
+ span.append(top,line,bottom);node.appendChild(span);
+ previous=regex.lastIndex;
+}
+if(previous<value.length)node.appendChild(document.createTextNode(value.slice(previous)));
+}
+
 var run=null;
 function screen(name){
 ['intro','diagnostic','results'].forEach(function(k){el('dins-'+k).hidden=k!==name;});
@@ -54,12 +69,12 @@ title.scrollIntoView({behavior:'smooth',block:'start'});
 function begin(){run={items:core.map(function(q){return Object.assign({},q);}),at:0,answers:[],assists:{}};screen('diagnostic');display();}
 function display(){
 var q=run.items[run.at],box=el('dins-choices');
-el('dins-question').textContent=q.q;
+writeFraction(el('dins-question'),q.q);
 el('dins-counter').textContent='Question '+(run.at+1)+' sur '+run.items.length;
 el('dins-meter').style.width=Math.floor(run.at*100/run.items.length)+'%';
 box.replaceChildren();
 q.opts.forEach(function(s,i){
-var b=document.createElement('button');b.type='button';b.className='dins-choice';b.textContent=s;
+var b=document.createElement('button');b.type='button';b.className='dins-choice';writeFraction(b,s);
 b.addEventListener('click',function(){answer(i);});box.appendChild(b);
 });
 el('dins-feedback').className='dins-answer-feedback';
@@ -71,7 +86,7 @@ if(run.answers.some(function(a){return a.position===run.at;}))return;
 var q=run.items[run.at],ok=choice===q.a;
 run.answers.push({position:run.at,skill:q.skill,correct:ok,help:!!q.help});
 Array.from(el('dins-choices').children).forEach(function(b,i){b.disabled=true;if(i===q.a)b.classList.add('right');else if(i===choice)b.classList.add('wrong');});
-var msg=el('dins-feedback');msg.textContent=(ok?'Bravo ! ':'Pas encore. ')+q.why;msg.className='dins-answer-feedback '+(ok?'good':'needs-work');
+var msg=el('dins-feedback');writeFraction(msg,(ok?'Bravo ! ':'Pas encore. ')+q.why);msg.className='dins-answer-feedback '+(ok?'good':'needs-work');
 if(!ok&&!q.help&&!run.assists[q.skill]){run.assists[q.skill]=true;run.items.splice(run.at+1,0,Object.assign({},help[q.skill]));}
 el('dins-next').hidden=false;el('dins-next').textContent=run.at+1>=run.items.length?'Voir mon bilan':'Question suivante';
 }
