@@ -12,3 +12,5 @@
 .dins-remedy{border-top:1px solid #d5e6f3;padding:14px 0}.dins-remedy p{margin:6px 0}.dins-results h4{margin:18px 0 5px}
 @media(max-width:740px){.dins-route{grid-template-columns:1fr}.dins-stepbar{grid-template-columns:1fr 1fr}.dins-actions{justify-content:stretch}.dins-actions button{flex:1}}
 @media(prefers-reduced-motion:reduce){.dins-path *{scroll-behavior:auto!important;transition:none!important}}
+
+.dins-inline-frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;min-width:1.3em;margin:0 .15em;font-size:.9em}.dins-inline-frac span{display:block}.dins-inline-bar{width:100%;height:2px;background:currentColor;margin:.08em 0}.dins-choices .dins-inline-frac{font-size:1.05em}
