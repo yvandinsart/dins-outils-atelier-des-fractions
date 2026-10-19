@@ -581,6 +581,7 @@ input.incorrect,.incorrect{border-color:var(--error)!important;background:#fff1f
 @media(max-width:390px){header{min-height:114px}.logo{width:88px;height:88px}.titles{margin-left:100px}.titles h1{font-size:1.55rem}.titles p{margin-top:4px}.titles .brand-promise{font-size:.76rem}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.mode-button:hover,.represent-option:hover,.equiv-option:hover,.compare-type:hover{transform:none}}
 </style>
+<link rel="stylesheet" href="parcours-pedagogique.css"/>
 </head>
 <body>
 <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
@@ -1019,4 +1020,6 @@ renderNumberProcess();
 render();
 if(location.protocol!=='file:'&&'serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js',{scope:'./'}).catch(console.warn));
 let deferredPrompt=null;const installBtn=document.getElementById('installBtn'),installHelp=document.getElementById('installHelp');const isStandalone=()=>window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);if(!isStandalone())installBtn.hidden=false;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBtn.hidden=false});installBtn.addEventListener('click',async()=>{installHelp.hidden=true;if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;return}installHelp.textContent=isIOS?'Pour installer : touche le bouton Partager de Safari, puis « Sur l’écran d’accueil » et « Ajouter ».':'Pour installer : ouvre le menu du navigateur, puis choisis « Installer l’application » ou « Ajouter à l’écran d’accueil ».';installHelp.hidden=false});window.addEventListener('appinstalled',()=>{installBtn.hidden=true;installHelp.hidden=true;deferredPrompt=null});
-</script></body></html>
+</script>
+<script src="parcours-pedagogique.js" defer></script>
+</body></html>
